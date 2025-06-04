@@ -11,8 +11,9 @@ reportStatusRouter.get(
 
       const progress = job.progress;
       const state = await job.getState();
+      const fileUrl = state === "completed" ? job?.returnvalue?.filePath : null;
 
-      res.json({ progress, state });
+      res.json({ progress: `${progress}%`, status: state, fileUrl: fileUrl });
     } catch (error) {
       res.status(500).json({ error });
     }
